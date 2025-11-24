@@ -82,13 +82,22 @@ int launch_tests(t_test **list)
         if (pid == 0)
         {
             total++;
-            result = tmp->func();
+            tmp->func();
         }
         else
         {
             waitpid(pid, &status, 0);
-		if (WIFSIGNALED(status) && WTERMSIG(status) == SIGSEGV)
-            result = 0;
+            if (WIFEXITED(status))
+            {
+                if (WEXITSTATUS(status) == EXIT_SUCCESS)
+                    result = LU_OK;
+                if (WEXITSTATUS(status) == EXIT_FAILURE)
+                    result = LU_KO;
+            }       
+		    if (WIFSIGNALED(status) && WTERMSIG(status) == SIGSEGV)
+                result = LU_SEGV;
+            if (WIFSIGNALED(status) && WTERMSIG(status) == SIGBUS)
+                result = LU_BUS;
         }
         print_result("LIBUNIT", tmp->name, result);
         if (result == LU_OK)

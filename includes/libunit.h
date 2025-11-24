@@ -29,7 +29,7 @@ void print_result(const char *func_name, const char *test_name, int result);
 
 
 int ft_strlen_launcher(void);
-int empty_test(void);
-int basic_test(void);
+void empty_test(void);
+void basic_test(void);
 
 #endif
