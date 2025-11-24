@@ -14,6 +14,10 @@ BLUE	:=	\033[1;34m
 RESET	:=	\033[0m
 
 SRCS	:= 	srcs/main.c \
+			srcs/test_utils.c \
+			srcs/tests/ft_strlen/00_launcher.c \
+			srcs/tests/ft_strlen/01_empty_test.c \
+			srcs/tests/ft_strlen/02_basic_test.c \
 
 OBJS	:= ${SRCS:.c=.o}
 
