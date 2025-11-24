@@ -1,6 +1,7 @@
 #include "../includes/libunit.h"
 #include <stdio.h>
 
+// Create a test node with name and testing function
 void load_test(t_test **list, char *name, int (*f)(void))
 {
     t_test *node;
@@ -66,6 +67,8 @@ int launch_tests(t_test **list)
     int total;
     int passed;
     int result;
+    int status;
+    pid_t   pid;
 
     total = 0;
     passed = 0;
@@ -75,8 +78,18 @@ int launch_tests(t_test **list)
     print_header("LIBUNIT TESTS");
     while (tmp)
     {
-        total++;
-        result = tmp->func();
+        pid = fork();
+        if (pid == 0)
+        {
+            total++;
+            result = tmp->func();
+        }
+        else
+        {
+            waitpid(pid, &status, 0);
+		if (WIFSIGNALED(status) && WTERMSIG(status) == SIGSEGV)
+            result = 0;
+        }
         print_result("LIBUNIT", tmp->name, result);
         if (result == LU_OK)
             passed++;

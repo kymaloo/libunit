@@ -4,6 +4,7 @@
 # include <unistd.h>
 # include <errno.h>
 # include <string.h>
+#include <sys/wait.h>
 # include "../libft/libft.h"
 # include "colors.h"
 # define LU_OK 0
