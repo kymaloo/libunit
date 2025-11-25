@@ -88,10 +88,7 @@ int	launch_each_test(t_test *tmp, int *total, int passed, t_test **list)
 	{
 		pid = fork();
 		if (pid == -1)
-		{
 			result = FORK_ERR;
-			write(1, "/!\\ fork error /!\\\n", 20);
-		}
 		*total = *total + 1;
 		if (pid == 0)
 			tmp->func((void **)list);
