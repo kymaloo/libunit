@@ -18,6 +18,17 @@ SRCS	:= 	srcs/main.c \
 			srcs/tests/ft_strlen/00_launcher.c \
 			srcs/tests/ft_strlen/01_empty_test.c \
 			srcs/tests/ft_strlen/02_basic_test.c \
+			srcs/tests/ft_atoi/00_launcher.c \
+			srcs/tests/ft_atoi/01_basic_test.c \
+			srcs/tests/ft_atoi/02_negative_test.c \
+			srcs/tests/ft_atoi/03_zero_test.c \
+			srcs/tests/ft_atoi/04_whitespace_test.c \
+			srcs/tests/ft_atoi/05_sign_test.c \
+			srcs/tests/ft_atoi/06_mixed_test.c \
+			srcs/tests/ft_atoi/07_large_positive_test.c \
+            srcs/tests/ft_atoi/08_large_negative_test.c \
+            srcs/tests/ft_atoi/09_leading_zeros_test.c \
+            srcs/tests/ft_atoi/010_empty_string_test.c \
 
 OBJS	:= ${SRCS:.c=.o}
 

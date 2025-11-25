@@ -1,6 +1,6 @@
 #include "../../../includes/libunit.h"
 
-int basic_test(void)
+int ft_strlen_basic_test(void)
 {
     char str[] = "Hello, World!";
     size_t expected = 13;

@@ -6,6 +6,7 @@ int main(void)
 
     result = 0;
     result += ft_strlen_launcher();
+    result += ft_atoi_launcher();
     if (result != 0)
         return (-1);
     return (0);

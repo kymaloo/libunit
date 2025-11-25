@@ -41,7 +41,10 @@ void print_header(const char *title)
 {
     if (!title)
         title = "TESTS";
-    printf("%s=== %s ===%s\n", LU_BOLD LU_BLUE, title, LU_RESET);
+    ft_write_colored(1, (char *)LU_BOLD LU_BLUE, "=== ");
+    ft_write_colored(1, (char *)LU_BOLD LU_BLUE, (char *)title);
+    ft_write_colored(1, (char *)LU_BOLD LU_BLUE, " ===");
+    write(1, "\n", 1);
 }
 
 void print_result(const char *func_name, const char *test_name, int result)
@@ -57,10 +60,15 @@ void print_result(const char *func_name, const char *test_name, int result)
         status = "SIGSEGV", col = LU_RED;
     else if (result == LU_BUS)
         status = "SIGBUS", col = LU_RED;
-    printf("%s:%s:%s%s%s\n", func_name, test_name, col, status, LU_RESET);
+    write(1, (char *)func_name, ft_strlen(func_name));
+    write(1, ":", 1);
+    write(1, (char *)test_name, ft_strlen(test_name));
+    write(1, ":", 1);
+    ft_write_colored(1, (char *)col, (char *)status);
+    write(1, "\n", 1);
 }
 
-int launch_tests(t_test **list)
+int launch_tests(t_test **list, char *func_name)
 {
     t_test *tmp;
     int total;
@@ -72,18 +80,24 @@ int launch_tests(t_test **list)
     tmp = *list;
     if (!tmp)
         return (0);
-    print_header("LIBUNIT TESTS");
+    print_header(func_name);
     while (tmp)
     {
         total++;
         result = tmp->func();
-        print_result("LIBUNIT", tmp->name, result);
+        print_result(func_name, tmp->name, result);
         if (result == LU_OK)
             passed++;
         tmp = tmp->next;
     }
-    printf("\nSummary: %d/%d tests passed\n", passed, total);
     if (passed != total)
         return (-1);
     return (0);
+}
+
+void ft_write_colored(int fd, char *color, char *str)
+{
+    write(fd, color, ft_strlen(color));
+    write(fd, str, ft_strlen(str));
+    write(fd, LU_RESET, ft_strlen(LU_RESET));
 }
