@@ -13,7 +13,7 @@
 #include "../../../includes/libunit.h"
 #include <string.h>
 
-int	basic_test(void)
+int	basic_test_strlen(void)
 {
 	char	*str;
 	size_t	expected;

@@ -12,7 +12,7 @@
 
 #include "../../../includes/libunit.h"
 
-int	empty_test(void)
+int	empty_test_strlen(void)
 {
 	if (ft_strlen("") == 0)
 		return (0);

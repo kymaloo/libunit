@@ -1,26 +1,35 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   00_launcher.c                                      :+:      :+:    :+:   */
+/*   01_basic_test.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jlaine-b <jlaine-b@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/11/25 22:21:10 by jlaine-b          #+#    #+#             */
-/*   Updated: 2025/11/25 23:09:30 by jlaine-b         ###   ########.fr       */
+/*   Created: 2025/11/25 22:47:36 by jlaine-b          #+#    #+#             */
+/*   Updated: 2025/11/25 22:55:39 by jlaine-b         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../../includes/libunit.h"
+#include "libunit.h"
 
-int	launcher_atoi(int *total)
+int	basic_test_split(void)
 {
-	t_test	*tests;
-	int		result;
+	char	*line;
+	char	c;	
+	int		i;
+	char	**tab;
 
-	tests = NULL;
-	// load_test(&tests, "Basic test", &basic_test_atoi);
-	// load_test(&tests, "Empty test", &empty_test);
-	result = ft_tests(&tests, "FT_SPLIT", total);
-	clear_tests(&tests);
-	return (result);
+	line = "bonjour les amis";
+	c = ' ';
+	i = 0;
+	tab = ft_split(line, c);
+	if (ft_strncmp(tab[0], "bonjour", 9) != 0)
+		return (-1);
+	if (ft_strncmp(tab[1], "les", 4) != 0)
+		return (-1);
+	if (ft_strncmp(tab[2], "amis", 5) != 0)
+		return (-1);
+	if (tab[3])
+		return (-1);
+	return (1);
 }
