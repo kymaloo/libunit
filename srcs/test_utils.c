@@ -13,6 +13,9 @@
 #include "../includes/libunit.h"
 #include <stdio.h>
 
+int	launch_each_test(t_test *tmp, int *total, int passed);
+int	select_result(int result);
+
 void	load_test(t_test **list, char *name, void (*f)(void))
 {
 	t_test	*node;
@@ -57,44 +60,61 @@ int	launch_tests(t_test **list)
 	t_test	*tmp;
 	int		total;
 	int		passed;
-	int		result;
-	int		status;
-	pid_t	pid;
 
 	total = 0;
 	passed = 0;
 	tmp = *list;
 	if (!tmp)
 		return (0);
-	print_header("LIBUNIT TESTS");
+	write(1, "=== LIBUNIT TESTS ===\n", 23);
+	passed = launch_each_test(tmp, &total, passed);
+	write(1, "\nSummary: ", 11);
+	ft_putnbr_fd(passed, 1);
+	write(1, "/", 1);
+	ft_putnbr_fd(total, 1);
+	write(1, " tests passed \n", 16);
+	if (passed != total)
+		return (-1);
+	return (0);
+}
+
+int	launch_each_test(t_test *tmp, int *total, int passed)
+{
+	pid_t	pid;
+	int		result;
+
 	while (tmp)
 	{
 		pid = fork();
-		total++;
+		*total = *total + 1;
 		if (pid == 0)
 			tmp->func();
 		else
-		{
-			waitpid(pid, &status, 0);
-			if (WIFEXITED(status))
-			{
-				if (WEXITSTATUS(status) == EXIT_SUCCESS)
-					result = LU_OK;
-				if (WEXITSTATUS(status) == EXIT_FAILURE)
-					result = LU_KO;
-			}
-			if (WIFSIGNALED(status) && WTERMSIG(status) == SIGSEGV)
-				result = LU_SEGV;
-			if (WIFSIGNALED(status) && WTERMSIG(status) == SIGBUS)
-				result = LU_BUS;
-		}
+			result = select_result(result);
 		print_result("LIBUNIT", tmp->name, result);
 		if (result == LU_OK)
 			passed++;
 		tmp = tmp->next;
 	}
-	printf("\nSummary: %d/%d tests passed\n", passed, total);
-	if (passed != total)
-		return (-1);
-	return (0);
+	return (passed);
+}
+
+int	select_result(int result)
+{
+	int		status;
+
+	wait(&status);
+	result = RES;
+	if (WIFEXITED(status))
+	{
+		if (WEXITSTATUS(status) == EXIT_SUCCESS)
+			result = LU_OK;
+		if (WEXITSTATUS(status) == EXIT_FAILURE)
+			result = LU_KO;
+	}
+	if (WIFSIGNALED(status) && WTERMSIG(status) == SIGSEGV)
+		result = LU_SEGV;
+	if (WIFSIGNALED(status) && WTERMSIG(status) == SIGBUS)
+		result = LU_BUS;
+	return (result);
 }

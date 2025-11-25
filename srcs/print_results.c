@@ -6,45 +6,31 @@
 /*   By: jlaine-b <jlaine-b@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/25 17:06:14 by jlaine-b          #+#    #+#             */
-/*   Updated: 2025/11/25 17:10:32 by jlaine-b         ###   ########.fr       */
+/*   Updated: 2025/11/25 17:42:37 by jlaine-b         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
 
 #include "../includes/libunit.h"
 #include <stdio.h>
 
-void	print_header(const char *title)
-{
-	if (!title)
-		title = "TESTS";
-	printf("%s=== %s ===%s\n", LU_BOLD LU_BLUE, title, LU_RESET);
-}
-
 void	print_result(const char *func_name, const char *test_name, int result)
 {
 	const char	*status;
-	const char	*col;
 
 	if (result == LU_OK)
-	{
 		status = "OK" ;
-		col = LU_GREEN;
-	}
 	else if (result == LU_KO)
-	{
 		status = "KO";
-		col = LU_RED;
-	}
 	else if (result == LU_SEGV)
-	{
 		status = "SIGSEGV";
-		col = LU_RED;
-	}
 	else if (result == LU_BUS)
-	{
 		status = "SIGBUS";
-		col = LU_RED;
-	}
-	printf("%s:%s:%s%s%s\n", func_name, test_name, col, status, LU_RESET);
+	else if (result == RES)
+		status = "UNKNOWN ERROR";
+	write(1, func_name, ft_strlen(func_name));
+	write(1, ":", 1);
+	write(1, test_name, ft_strlen(test_name));
+	write(1, ":", 1);
+	write(1, status, ft_strlen(status));
+	write(1, "\n", 1);
 }

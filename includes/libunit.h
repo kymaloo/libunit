@@ -6,7 +6,7 @@
 /*   By: jlaine-b <jlaine-b@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/25 16:52:22 by jlaine-b          #+#    #+#             */
-/*   Updated: 2025/11/25 16:56:31 by jlaine-b         ###   ########.fr       */
+/*   Updated: 2025/11/25 17:37:43 by jlaine-b         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,10 +19,15 @@
 # include <sys/wait.h>
 # include "../libft/libft.h"
 # include "colors.h"
-# define LU_OK 0
-# define LU_KO 1
-# define LU_SEGV 2
-# define LU_BUS 3
+
+enum e_result
+{
+	RES,
+	LU_OK,
+	LU_KO,
+	LU_SEGV,
+	LU_BUS,
+};
 
 typedef struct s_test
 {
