@@ -13,7 +13,7 @@
 #include "../includes/libunit.h"
 #include <stdio.h>
 
-int	launch_each_test(t_test *tmp, int *total, int passed);
+int	launch_each_test(t_test *tmp, int *total, int passed, t_test **list);
 int	select_result(int result);
 
 void	load_test(t_test **list, char *name, void (*f)(void))
@@ -67,7 +67,7 @@ int	launch_tests(t_test **list)
 	if (!tmp)
 		return (0);
 	write(1, "=== LIBUNIT TESTS ===\n", 23);
-	passed = launch_each_test(tmp, &total, passed);
+	passed = launch_each_test(tmp, &total, passed, list);
 	write(1, "\nSummary: ", 11);
 	ft_putnbr_fd(passed, 1);
 	write(1, "/", 1);
@@ -78,17 +78,24 @@ int	launch_tests(t_test **list)
 	return (0);
 }
 
-int	launch_each_test(t_test *tmp, int *total, int passed)
+int	launch_each_test(t_test *tmp, int *total, int passed, t_test **list)
 {
 	pid_t	pid;
 	int		result;
 
+	result = RES;
 	while (tmp)
 	{
 		pid = fork();
+		if (pid == -1)
+			write(1, "/!\\ fork error /!\\\n", 20);
 		*total = *total + 1;
 		if (pid == 0)
+		{
 			tmp->func();
+			free(tmp);
+			clear_tests(list);
+		}
 		else
 			result = select_result(result);
 		print_result("LIBUNIT", tmp->name, result);
@@ -103,8 +110,8 @@ int	select_result(int result)
 {
 	int		status;
 
-	wait(&status);
-	result = RES;
+	if (wait(&status) == -1)
+		result = WAIT_ERR;
 	if (WIFEXITED(status))
 	{
 		if (WEXITSTATUS(status) == EXIT_SUCCESS)

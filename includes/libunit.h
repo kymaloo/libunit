@@ -6,7 +6,7 @@
 /*   By: jlaine-b <jlaine-b@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/25 16:52:22 by jlaine-b          #+#    #+#             */
-/*   Updated: 2025/11/25 17:37:43 by jlaine-b         ###   ########.fr       */
+/*   Updated: 2025/11/25 17:53:50 by jlaine-b         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@ enum e_result
 	LU_KO,
 	LU_SEGV,
 	LU_BUS,
+	WAIT_ERR,
 };
 
 typedef struct s_test
