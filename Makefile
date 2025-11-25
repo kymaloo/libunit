@@ -18,6 +18,7 @@ SRCS	:= 	srcs/main.c \
 			srcs/tests/ft_strlen/00_launcher.c \
 			srcs/tests/ft_strlen/01_empty_test.c \
 			srcs/tests/ft_strlen/02_basic_test.c \
+			srcs/print_results.c \
 
 OBJS	:= ${SRCS:.c=.o}
 

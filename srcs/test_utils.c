@@ -1,111 +1,100 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   test_utils.c                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: jlaine-b <jlaine-b@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/11/25 16:40:24 by jlaine-b          #+#    #+#             */
+/*   Updated: 2025/11/25 16:40:24 by jlaine-b         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../includes/libunit.h"
 #include <stdio.h>
 
-// Create a test node with name and testing function
-void load_test(t_test **list, char *name, int (*f)(void))
+void	load_test(t_test **list, char *name, void (*f)(void))
 {
-    t_test *node;
-    node = (t_test *)malloc(sizeof(t_test));
-    if (!node)
-        return ;
-    node->name = name;
-    node->func = f;
-    node->next = NULL;
-    if (!*list)
-        *list = node;
-    else
-    {
-        t_test *it = *list;
-        while (it->next)
-            it = it->next;
-        it->next = node;
-    }
+	t_test	*node;
+	t_test	*it;
+
+	node = (t_test *)malloc(sizeof(t_test));
+	if (!node)
+		return ;
+	node->name = name;
+	node->func = f;
+	node->next = NULL;
+	if (!*list)
+		*list = node;
+	else
+	{
+		it = *list;
+		while (it->next)
+			it = it->next;
+		it->next = node;
+	}
 }
 
-void clear_tests(t_test **list)
+void	clear_tests(t_test **list)
 {
-    t_test *it;
-    t_test *tmp;
-    if (!list || !*list)
-        return ;
-    it = *list;
-    while (it)
-    {
-        tmp = it->next;
-        free(it);
-        it = tmp;
-    }
-    *list = NULL;
+	t_test	*it;
+	t_test	*tmp;
+
+	if (!list || !*list)
+		return ;
+	it = *list;
+	while (it)
+	{
+		tmp = it->next;
+		free(it);
+		it = tmp;
+	}
+	*list = NULL;
 }
 
-void print_header(const char *title)
+int	launch_tests(t_test **list)
 {
-    if (!title)
-        title = "TESTS";
-    printf("%s=== %s ===%s\n", LU_BOLD LU_BLUE, title, LU_RESET);
-}
+	t_test	*tmp;
+	int		total;
+	int		passed;
+	int		result;
+	int		status;
+	pid_t	pid;
 
-void print_result(const char *func_name, const char *test_name, int result)
-{
-    const char *status;
-    const char *col;
-
-    if (result == LU_OK)
-        status = "OK", col = LU_GREEN;
-    else if (result == LU_KO)
-        status = "KO", col = LU_RED;
-    else if (result == LU_SEGV)
-        status = "SIGSEGV", col = LU_RED;
-    else if (result == LU_BUS)
-        status = "SIGBUS", col = LU_RED;
-    printf("%s:%s:%s%s%s\n", func_name, test_name, col, status, LU_RESET);
-}
-
-int launch_tests(t_test **list)
-{
-    t_test *tmp;
-    int total;
-    int passed;
-    int result;
-    int status;
-    pid_t   pid;
-
-    total = 0;
-    passed = 0;
-    tmp = *list;
-    if (!tmp)
-        return (0);
-    print_header("LIBUNIT TESTS");
-    while (tmp)
-    {
-        pid = fork();
-        if (pid == 0)
-        {
-            total++;
-            tmp->func();
-        }
-        else
-        {
-            waitpid(pid, &status, 0);
-            if (WIFEXITED(status))
-            {
-                if (WEXITSTATUS(status) == EXIT_SUCCESS)
-                    result = LU_OK;
-                if (WEXITSTATUS(status) == EXIT_FAILURE)
-                    result = LU_KO;
-            }       
-		    if (WIFSIGNALED(status) && WTERMSIG(status) == SIGSEGV)
-                result = LU_SEGV;
-            if (WIFSIGNALED(status) && WTERMSIG(status) == SIGBUS)
-                result = LU_BUS;
-        }
-        print_result("LIBUNIT", tmp->name, result);
-        if (result == LU_OK)
-            passed++;
-        tmp = tmp->next;
-    }
-    printf("\nSummary: %d/%d tests passed\n", passed, total);
-    if (passed != total)
-        return (-1);
-    return (0);
+	total = 0;
+	passed = 0;
+	tmp = *list;
+	if (!tmp)
+		return (0);
+	print_header("LIBUNIT TESTS");
+	while (tmp)
+	{
+		pid = fork();
+		total++;
+		if (pid == 0)
+			tmp->func();
+		else
+		{
+			waitpid(pid, &status, 0);
+			if (WIFEXITED(status))
+			{
+				if (WEXITSTATUS(status) == EXIT_SUCCESS)
+					result = LU_OK;
+				if (WEXITSTATUS(status) == EXIT_FAILURE)
+					result = LU_KO;
+			}
+			if (WIFSIGNALED(status) && WTERMSIG(status) == SIGSEGV)
+				result = LU_SEGV;
+			if (WIFSIGNALED(status) && WTERMSIG(status) == SIGBUS)
+				result = LU_BUS;
+		}
+		print_result("LIBUNIT", tmp->name, result);
+		if (result == LU_OK)
+			passed++;
+		tmp = tmp->next;
+	}
+	printf("\nSummary: %d/%d tests passed\n", passed, total);
+	if (passed != total)
+		return (-1);
+	return (0);
 }
