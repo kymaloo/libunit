@@ -13,7 +13,7 @@
 #include "../../../includes/libunit.h"
 #include <string.h>
 
-void	basic_test(void)
+void	basic_test(void **list)
 {
 	char	*str;
 	size_t	expected;
@@ -25,6 +25,7 @@ void	basic_test(void)
 	result = ft_strlen(str);
 	// str2 = NULL;
 	// *str2 = 'H';
+	clear_tests((t_test **)list);
 	if (result != expected)
 		exit(EXIT_FAILURE);
 	exit(EXIT_SUCCESS);

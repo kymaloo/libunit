@@ -12,8 +12,9 @@
 
 #include "../../../includes/libunit.h"
 
-void	empty_test(void)
+void	empty_test(void **list)
 {
+	clear_tests((t_test **)list);
 	if (ft_strlen("") != 0)
 		exit(EXIT_FAILURE);
 	exit(EXIT_SUCCESS);

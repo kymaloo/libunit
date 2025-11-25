@@ -6,7 +6,7 @@
 /*   By: jlaine-b <jlaine-b@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/25 16:52:22 by jlaine-b          #+#    #+#             */
-/*   Updated: 2025/11/25 17:53:50 by jlaine-b         ###   ########.fr       */
+/*   Updated: 2025/11/25 21:03:01 by jlaine-b         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,24 +28,24 @@ enum e_result
 	LU_SEGV,
 	LU_BUS,
 	WAIT_ERR,
+	FORK_ERR,
 };
 
 typedef struct s_test
 {
 	char			*name;
-	void			(*func)(void);
+	void			(*func)(void **list);
 	struct s_test	*next;
 }					t_test;
 
-void	load_test(t_test **list, char *name, void (*f)(void));
+void	load_test(t_test **list, char *name, void (*f)(void **list));
 int		launch_tests(t_test **list);
 void	clear_tests(t_test **list);
 
-void	print_header(const char *title);
 void	print_result(const char *func_name, const char *test_name, int result);
 
 int		test_launcher(void);
-void	empty_test(void);
-void	basic_test(void);
+void	empty_test(void **list);
+void	basic_test(void **list);
 
 #endif

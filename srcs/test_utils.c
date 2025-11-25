@@ -16,7 +16,7 @@
 int	launch_each_test(t_test *tmp, int *total, int passed, t_test **list);
 int	select_result(int result);
 
-void	load_test(t_test **list, char *name, void (*f)(void))
+void	load_test(t_test **list, char *name, void (*f)(void **list))
 {
 	t_test	*node;
 	t_test	*it;
@@ -88,14 +88,13 @@ int	launch_each_test(t_test *tmp, int *total, int passed, t_test **list)
 	{
 		pid = fork();
 		if (pid == -1)
+		{
+			result = FORK_ERR;
 			write(1, "/!\\ fork error /!\\\n", 20);
+		}
 		*total = *total + 1;
 		if (pid == 0)
-		{
-			tmp->func();
-			free(tmp);
-			clear_tests(list);
-		}
+			tmp->func((void **)list);
 		else
 			result = select_result(result);
 		print_result("LIBUNIT", tmp->name, result);
