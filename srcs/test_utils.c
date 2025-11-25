@@ -16,7 +16,7 @@
 int	launch_each_test(t_test *tmp, int *total, int passed, t_test **list);
 int	select_result(int result);
 
-void	load_test(t_test **list, char *name, void (*f)(void **list))
+void	load_test(t_test **list, char *name, int (*f)(void))
 {
 	t_test	*node;
 	t_test	*it;
@@ -55,7 +55,7 @@ void	clear_tests(t_test **list)
 	*list = NULL;
 }
 
-int	launch_tests(t_test **list)
+int	ft_tests(t_test **list)
 {
 	t_test	*tmp;
 	int		total;
@@ -82,6 +82,7 @@ int	launch_each_test(t_test *tmp, int *total, int passed, t_test **list)
 {
 	pid_t	pid;
 	int		result;
+	int		output;
 
 	result = RES;
 	while (tmp)
@@ -91,7 +92,13 @@ int	launch_each_test(t_test *tmp, int *total, int passed, t_test **list)
 			result = FORK_ERR;
 		*total = *total + 1;
 		if (pid == 0)
-			tmp->func((void **)list);
+		{
+			output = tmp->func();
+			clear_tests(list);
+			if (output == 0)
+				exit(EXIT_SUCCESS);
+			exit(EXIT_FAILURE);
+		}
 		else
 			result = select_result(result);
 		print_result("LIBUNIT", tmp->name, result);

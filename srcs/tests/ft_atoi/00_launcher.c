@@ -6,13 +6,13 @@
 /*   By: jlaine-b <jlaine-b@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/25 22:21:10 by jlaine-b          #+#    #+#             */
-/*   Updated: 2025/11/25 22:43:57 by jlaine-b         ###   ########.fr       */
+/*   Updated: 2025/11/25 22:44:32 by jlaine-b         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../../includes/libunit.h"
 
-int	launcher_strlen(void)
+int	launcher_atoi(void)
 {
 	t_test	*tests;
 	int		result;
