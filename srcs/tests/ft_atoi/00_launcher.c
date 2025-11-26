@@ -1,6 +1,6 @@
 #include "../../../includes/libunit.h"
 
-int ft_atoi_launcher(void)
+int ft_atoi_launcher(int *total)
 {
     t_test *tests = NULL;
 
@@ -15,7 +15,7 @@ int ft_atoi_launcher(void)
     load_test(&tests, "Leading zeros", &ft_atoi_leading_zeros_test);
     load_test(&tests, "Empty string", &ft_atoi_empty_string_test);
 
-    int result = launch_tests(&tests, "ft_atoi");
+    int result = ft_tests(&tests, "ft_atoi", total);
 
     clear_tests(&tests);
     return result;

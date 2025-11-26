@@ -6,7 +6,7 @@
 /*   By: jlaine-b <jlaine-b@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/25 16:45:09 by jlaine-b          #+#    #+#             */
-/*   Updated: 2025/11/26 11:57:23 by jlaine-b         ###   ########.fr       */
+/*   Updated: 2025/11/26 12:14:44 by jlaine-b         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,9 +18,10 @@ int	main(void)
 	int	total;
 
 	passed = 0;
-	passed += launcher_strlen(&total);
-	passed += launcher_atoi(&total);
-	passed += launcher_split(&total);
+	write(1, "=== LIBUNIT TESTS ===\n", 23);
+	passed += ft_strlen_launcher(&total);
+	passed += ft_atoi_launcher(&total);
+	passed += ft_split_launcher(&total);
 	write(1, "\nSummary: ", 11);
 	ft_putnbr_fd(passed, 1);
 	write(1, "/", 1);

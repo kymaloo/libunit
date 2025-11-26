@@ -19,6 +19,8 @@ int ft_strlen_basic_test(void)
 	size_t	expected;
 	size_t	result;
 
+	expected = 13;
+	result = ft_strlen(str);
     if (result != expected)
         return (LU_KO);
     return (LU_OK);

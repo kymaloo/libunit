@@ -64,7 +64,9 @@ int	ft_tests(t_test **list, const char *func_name, int *total)
 	tmp = *list;
 	if (!tmp)
 		return (0);
-	write(1, "=== LIBUNIT TESTS ===\n", 23);
+	write(1, "\n== ", 5);
+	write(1, func_name, ft_strlen(func_name));
+	write(1, " ==\n", 5);
 	passed = launch_each_test(tmp, total, passed, list, func_name);
 	return (passed);
 }
@@ -75,24 +77,6 @@ int	launch_each_test(t_test *tmp, int *total, int passed, t_test **list, const c
 	int		result;
 	int		output;
 
-    if (result == LU_OK)
-        status = "OK", col = LU_GREEN;
-    else if (result == LU_KO)
-        status = "KO", col = LU_RED;
-    else if (result == LU_SEGV)
-        status = "SIGSEGV", col = LU_RED;
-    else
-        status = "SIGBUS", col = LU_RED;
-    write(1, (char *)func_name, ft_strlen(func_name));
-    write(1, ":", 1);
-    write(1, (char *)test_name, ft_strlen(test_name));
-    write(1, ":", 1);
-    ft_write_colored(1, (char *)col, (char *)status);
-    write(1, "\n", 1);
-}
-
-int launch_tests(t_test **list, char *func_name)
-	result = RES;
 	while (tmp)
 	{
 		pid = fork();
@@ -119,26 +103,8 @@ int launch_tests(t_test **list, char *func_name)
 
 int	select_result(int result)
 {
-	int		status;
+	int	status;
 
-    total = 0;
-    passed = 0;
-    tmp = *list;
-    if (!tmp)
-        return (0);
-    print_header(func_name);
-    while (tmp)
-    {
-        total++;
-        result = tmp->func();
-        print_result(func_name, tmp->name, result);
-        if (result == LU_OK)
-            passed++;
-        tmp = tmp->next;
-    }
-    if (passed != total)
-        return (-1);
-    return (0);
 	if (wait(&status) == -1)
 		result = WAIT_ERR;
 	if (WIFEXITED(status))
