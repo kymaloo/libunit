@@ -14,9 +14,7 @@ int ft_atoi_launcher(int *total)
     load_test(&tests, "Large negative number", &ft_atoi_large_negative_test);
     load_test(&tests, "Leading zeros", &ft_atoi_leading_zeros_test);
     load_test(&tests, "Empty string", &ft_atoi_empty_string_test);
-
     int result = ft_tests(&tests, "ft_atoi", total);
-
     clear_tests(&tests);
     return result;
 }
