@@ -1,32 +1,35 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   01_basic_test.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jlaine-b <jlaine-b@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/11/25 16:45:09 by jlaine-b          #+#    #+#             */
-/*   Updated: 2025/11/26 11:57:23 by jlaine-b         ###   ########.fr       */
+/*   Created: 2025/11/25 22:47:36 by jlaine-b          #+#    #+#             */
+/*   Updated: 2025/11/26 11:54:31 by jlaine-b         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/libunit.h"
+#include "libunit.h"
 
-int	main(void)
+int	basic_test_split(void)
 {
-	int	passed;
-	int	total;
+	char	*line;
+	char	c;	
+	int		i;
+	char	**tab;
 
-	passed = 0;
-	passed += launcher_strlen(&total);
-	passed += launcher_atoi(&total);
-	passed += launcher_split(&total);
-	write(1, "\nSummary: ", 11);
-	ft_putnbr_fd(passed, 1);
-	write(1, "/", 1);
-	ft_putnbr_fd(total, 1);
-	write(1, " tests passed \n", 16);
-	if (passed != total)
+	line = "bonjour les amis";
+	c = ' ';
+	i = 0;
+	tab = ft_split(line, c);
+	if (ft_strncmp(tab[0], "bonjour", 9) != 0)
 		return (-1);
-	return (0);
+	if (ft_strncmp(tab[1], "les", 4) != 0)
+		return (-1);
+	if (ft_strncmp(tab[2], "amis", 5) != 0)
+		return (-1);
+	if (tab[3])
+		return (-1);
+	return (1);
 }

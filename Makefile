@@ -2,7 +2,7 @@ NAME		:= libunit.a
 LIBFT_DIR	:= ./libft
 LIBFT_A		:= $(LIBFT_DIR)/libft.a
 
-INCLUDES	:= -Iinclude
+INCLUDES	:= -Iincludes
 ARCHIVES	:= $(LIBFT_A)
 CFLAGS		:= -Wall -Wextra -Werror -g3 $(INCLUDES)
 
@@ -15,7 +15,6 @@ RESET	:=	\033[0m
 
 SRCS	:= 	srcs/main.c \
 			srcs/test_utils.c \
-			srcs/tests/ft_strlen/00_launcher.c \
 			srcs/tests/ft_strlen/01_empty_test.c \
 			srcs/tests/ft_strlen/02_basic_test.c \
 			srcs/tests/ft_atoi/00_launcher.c \
@@ -29,11 +28,16 @@ SRCS	:= 	srcs/main.c \
             srcs/tests/ft_atoi/08_large_negative_test.c \
             srcs/tests/ft_atoi/09_leading_zeros_test.c \
             srcs/tests/ft_atoi/010_empty_string_test.c \
+			srcs/tests/ft_strlen/00_launcher.c \
+			srcs/tests/ft_split/00_launcher.c \
+			srcs/tests/ft_split/01_basic_test.c \
+			srcs/print_results.c \
 
 OBJS	:= ${SRCS:.c=.o}
 
 all: $(NAME)
 
+test: $(NAME)
 
 %.o: %.c
 	@printf "$(BLUE)$(NAME): compiling objects:\n$(BLUE)$(NAME): compiling $(RESET)%-45.45s\n" $@

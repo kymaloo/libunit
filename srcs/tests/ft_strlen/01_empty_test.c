@@ -1,8 +1,20 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   01_empty_test.c                                    :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: jlaine-b <jlaine-b@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/11/25 16:39:08 by jlaine-b          #+#    #+#             */
+/*   Updated: 2025/11/25 16:39:08 by jlaine-b         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../../../includes/libunit.h"
 
-int ft_strlen_empty_test(void)
+int	empty_test_strlen(void)
 {
-    if (ft_strlen("") != 0)
-        return (LU_KO);
-    return (LU_OK);
+	if (ft_strlen("") == 0)
+		return (0);
+	return (-1);
 }
