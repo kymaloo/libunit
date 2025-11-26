@@ -58,7 +58,7 @@ void print_result(const char *func_name, const char *test_name, int result)
         status = "KO", col = LU_RED;
     else if (result == LU_SEGV)
         status = "SIGSEGV", col = LU_RED;
-    else if (result == LU_BUS)
+    else
         status = "SIGBUS", col = LU_RED;
     write(1, (char *)func_name, ft_strlen(func_name));
     write(1, ":", 1);
