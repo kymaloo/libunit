@@ -1,26 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   00_launcher.c                                      :+:      :+:    :+:   */
+/*   ko.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jlaine-b <jlaine-b@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/11/25 22:21:10 by jlaine-b          #+#    #+#             */
-/*   Updated: 2025/11/26 12:28:35 by jlaine-b         ###   ########.fr       */
+/*   Created: 2025/11/26 12:17:22 by jlaine-b          #+#    #+#             */
+/*   Updated: 2025/11/26 12:26:38 by jlaine-b         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../../includes/libunit.h"
+#include "libunit.h"
 
-int	ft_strlen_launcher(int *total)
+int	ko_test(void)
 {
-	t_test	*tests;
-	int		result;
+	int	i;
 
-	tests = NULL;
-	load_test(&tests, "Basic test", &ft_strlen_basic_test);
-	load_test(&tests, "Empty test", &ft_strlen_empty_test);
-	result = ft_tests(&tests, "ft_strlen", total);
-	clear_tests(&tests);
-	return (result);
+	i = 1;
+	if (ft_real(&i) == 1)
+		return (0);
+	return (-1);
 }

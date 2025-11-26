@@ -6,7 +6,7 @@
 /*   By: jlaine-b <jlaine-b@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/25 16:52:22 by jlaine-b          #+#    #+#             */
-/*   Updated: 2025/11/26 12:04:11 by jlaine-b         ###   ########.fr       */
+/*   Updated: 2025/11/26 12:27:23 by jlaine-b         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,5 +65,14 @@ int ft_atoi_large_positive_test(void);
 int ft_atoi_large_negative_test(void);
 int ft_atoi_leading_zeros_test(void);
 int ft_atoi_empty_string_test(void);
+
+int	real_launcher(int *total);
+int	ok_test(void);
+int	ko_test(void);
+int	segfault_test(void);
+int	bus_test(void);
+
+int	ft_real(int *i);
+
 
 #endif

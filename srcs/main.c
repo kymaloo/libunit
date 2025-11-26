@@ -6,7 +6,7 @@
 /*   By: jlaine-b <jlaine-b@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/25 16:45:09 by jlaine-b          #+#    #+#             */
-/*   Updated: 2025/11/26 12:14:44 by jlaine-b         ###   ########.fr       */
+/*   Updated: 2025/11/26 12:26:07 by jlaine-b         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@ int	main(void)
 	passed += ft_strlen_launcher(&total);
 	passed += ft_atoi_launcher(&total);
 	passed += ft_split_launcher(&total);
+	passed += real_launcher(&total);
 	write(1, "\nSummary: ", 11);
 	ft_putnbr_fd(passed, 1);
 	write(1, "/", 1);

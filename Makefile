@@ -32,6 +32,12 @@ SRCS	:= 	srcs/main.c \
 			srcs/tests/ft_split/00_launcher.c \
 			srcs/tests/ft_split/01_basic_test.c \
 			srcs/print_results.c \
+			srcs/tests/real/00_launcher.c \
+			srcs/tests/real/ko.c \
+			srcs/tests/real/ok.c \
+			srcs/tests/real/segfault.c \
+			srcs/tests/real/bus.c \
+			srcs/tests/real/real.c \
 
 OBJS	:= ${SRCS:.c=.o}
 
